@@ -4,9 +4,14 @@ We'll explore one of the latest vulnerabilities making headlines and show you ho
 
 ### Approach
 
-- go down vuln by vuln, plug in the major phases
+- go down vuln by vuln, explain major phases one by one, ie:
+  - analyze: react2shell
+  - plan: sharepoint server RCE (why: multiple operational steps and considerations)
+  - fix/remediate: openclaw (why: easy kandji+intune)
 - do overall structure first, then go vuln by vuln
 
+how to show this:
+- create a dynamic/animated flow and show how steps are run, make it a mini-UI
 
 ## General structure
 
@@ -185,7 +190,211 @@ higher speed := stronger building blocks
   - ~130K apps estimated affected
 - why: massive PHP/Laravel ecosystem, hydration/deserialization attack class (mirrors react2shell), hidden transitive dependency angle makes discovery non-trivial
 
-## Post-conf feedback
+
+
+# Vuln-by-vuln approach to the talk
+
+## CVE-2025-55182: react2shell, discover and analyze
+
+let's dive into agentic analysis, using a 511 model (5 agents, 1 AI evaluation, 1 orchestration)
+
+1. Business impact — does it matter?
+- What do the affected React/Next.js apps do? Customer-facing SaaS, internal tools, marketing sites?
+- What data flows through them? PII, payment, auth tokens?
+- Revenue impact if compromised vs. a static marketing site
+
+2. Attack surface — is it real?
+This is the big one for react2shell. Lots of potential false positives:
+- React 19+ only — React 18 and below are not affected at all
+- React Server Components specifically — client-side-only React apps are not vulnerable, even on React 19
+- The actual vulnerable packages are react-server-dom-webpack, react-server-dom-turbopack, react-server-dom-parcel — check if they're in the dependency tree,
+not just whether you use React
+- Next.js App Router vs Pages Router — App Router uses RSC by default, Pages Router does not. A Next.js app on Pages Router may not be affected
+- Server Functions ("use server") must exist for the deserialization endpoint to be reachable
+- Static/SSG-only builds — if there's no running server (just exported HTML), there's nothing to exploit
+- Is it internet-facing? Pre-auth vuln, but an internal-only app behind a VPN has a very different risk profile
+So "we use React" or "we use Next.js" is not enough — you need to drill into: which React version, are RSC packages present, is there a server runtime, is it
+reachable.
+
+3. Blast radius — does it hurt?
+It's RCE, so what's reachable from the server process:
+- Environment variables (API keys, DB connection strings, third-party secrets)
+- Internal network — can they pivot to databases, internal APIs, other services?
+- Is it running in a container with limited scope, or on a VM with broad access?
+- Shared infrastructure — if multiple apps share the same Node server or cluster
+- Supply chain angle — if it's a build/preview server (like Vercel preview deployments), could compromise propagate to production?
+
+4. Exploitability — can they do it?
+- CVSS 10, no auth, no user interaction, network-exploitable
+- Public exploits exist, actively exploited in the wild
+
+5. News
+- Named vulnerability ("react2shell"), major coverage
+- React/Next.js is one of the most widely used web frameworks — high visibility
+
+Key analysis actions
+- do not report on: React 18 apps, client-only SPAs, static sites, Pages Router Next.js apps — these can likely be marked as not affected after
+verification
+- false positive risk is high: a dependency scanner will flag any project with react-server-dom-* in node_modules, but many may not actually have an
+exploitable server runtime
+- reprioritize the follow-ups separately: the DoS CVEs (55184/67779) and source code leak (55183) have meaningfully different risk than the RCE (55182) —
+don't lump them together at CVSS 10
+
+After analysis, we used the output and finally fixed using the next 2 phases
+(won't go into detail on this CVE, we will look at another CVE to keep it fresh and see how it works there)
+- **plan**: patch affected repos as a priority
+  - mtn: also covers 2026-55183 + 2026-55184
+  - using latest patch also covers 2026-67779
+- **fix**:
+  - existing pipelines for code-deployments + testing
+  - PR to fix
+
+
+## CVE-2025-53770: SharePoint Server RCE, plan
+
+Previously executed, just like we saw, was:
+**analysis** high priority, in the news, internal attack surface, business-critical, high blast radius, exploitable (90.54% epss, public poc, CISA, ransomware, apt27/apt31)
+
+Operational considerations — this is where SharePoint gets heavy
+- Downtime required: Installing KB5002754 + KB5002753 requires SharePoint to be offline, and IIS restart (iisreset.exe) bounces all sites on that server —
+not just SharePoint
+- Multi-server farms: SharePoint farms have multiple roles (web front-ends, app servers, search, database). Patches need to go on all servers, and there's a
+specific order — typically database/app tier first, then WFEs
+- PSConfig / SharePoint Products Configuration Wizard: After KB install you must run the config wizard on every server in the farm, in order. This can take
+significant time and has its own failure modes
+- The machine key rotation is disruptive: Set-SPMachineKey / Update-SPMachineKey invalidates existing sessions, tokens, and cached credentials. Users get
+logged out. Anything relying on those keys (custom auth, encrypted ViewState) breaks until reconfigured
+- IIS restart affects co-hosted services: If anything else runs on IIS on those servers (other web apps, APIs, ADFS), it goes down too
+- AMSI enablement: Turning on the anti-malware scan interface is a config change, not a patch — but it can introduce performance overhead and may flag
+legitimate custom solutions as suspicious
+
+Which remediation/mitigation action do we take?
+1. Network-level mitigation first (low disruption): restrict access to SharePoint servers from untrusted networks, block known exploit patterns at
+WAF/firewall — buys time
+2. AMSI enablement (medium disruption): detection capability without patching, catches the known threat signatures (SuspSignoutReq, MachineKeyFinder, etc.)
+3. KB patches + PSConfig (high disruption): the actual fix, requires maintenance window
+4. Machine key rotation (high disruption): post-patch hardening, assume keys are compromised since this is nation-state exploited (APT27/APT31)
+
+Rightsizing — smaller chunks vs. update considerations
+- KB install + PSConfig + IIS restart is one indivisible maintenance window per server
+- Machine key rotation is a separate window but equally disruptive
+- You could argue for two maintenance windows: patch first, rotate keys second — spreading the risk and validation across two events
+- But given active nation-state exploitation, there's a case for doing it all at once to minimize the exposure window
+
+Rollback considerations
+- KB patches: SharePoint KBs can be uninstalled, but PSConfig changes to the database schema cannot be rolled back. You need a full farm database backup
+before starting
+- Machine key rotation: Old keys are gone. If something breaks, you need the backed-up keys. Make sure Set-SPMachineKey backup is captured
+- AMSI: Can be disabled again easily — low-risk change
+
+Channels and coordination
+- Change management: This likely needs a formal change request — SharePoint is business-critical infrastructure, touches document management, workflows,
+intranet
+- Stakeholder coordination: Business owners need to know about the outage window. Users need to know sessions will be invalidated (machine key rotation)
+- Multiple teams involved: SharePoint admins, network/firewall team (for interim mitigation), database team (for pre-patch backup), security team (for IOC
+check before patching — are you already compromised?)
+
+Pre-flight: check for compromise before patching
+- Given APT27/APT31 active exploitation, check for IOCs before patching:
+  - Scan for the related threats from the README: SuspSignoutReq.A, HijackSharePointServer.A, MachineKeyFinder.DA!amsi
+  - If already compromised, patching alone is insufficient — you need incident response first, then patch. Patching a compromised server just keeps the
+  attacker in with the vulnerability closed behind them
+
+After plan, we used the output to fix and validate.
+
+
+## CVE-2026-32027: OpenClaw/ClawJacked, fixing
+
+Final example! Again, previous steps happened:
+- **analysis**: endpoints, exploitable, news, massive blast radius
+- **plan**: patch and update the components
+
+let's go into the **fix**
+
+**via Kandji:**
+
+    Core mechanism: Custom Script with Audit + Remediation
+
+    Kandji's Custom Scripts support a two-phase model that maps directly to this:
+
+    1. Audit script (runs every check-in, ~15 min) - cnspec validate vulnerability
+    2. Remediation script (only runs when audit fails):
+    ```
+    #!/bin/bash
+    set -e
+    # 1. Stop the service
+    launchctl bootout system/com.openclaw.service 2>/dev/null || true
+
+    # 2. Back up config/memory
+    cp -R /path/to/openclaw/config /path/to/openclaw/config.bak
+
+    # 3. Update (git pull, brew upgrade, pkg install — whatever the install method is)
+    # ...
+
+    # 4. Restart
+    launchctl bootstrap system /Library/LaunchDaemons/com.openclaw.service.plist
+    ```
+
+    On the next check-in the audit runs again — if the version is correct, it passes and remediation stops. This is the built-in retry mechanism: audit keeps
+    failing → remediation keeps running until it works.
+
+    Staged rollout - Kandji doesn't have percentage-based rollouts, so you use Blueprints:
+    1. Canary Blueprint — assign 5-10 test devices, add the Custom Script Library Item
+    2. Monitor compliance + script logs in the console
+    3. Production Blueprint — add the Library Item once canary looks good
+    4. Move devices in batches if you want gradual rollout
+
+    Key considerations for OpenClaw specifically
+    - push update to machines that need it, continuously validate
+    - Install method varies: OpenClaw might be installed via Homebrew, pip, git clone, or a .pkg — the remediation script needs to match the install method
+    - Config/memory backup: The README calls out backing up config and memory — make sure the remediation script handles this before updating, and has a sensible backup location
+    - No guaranteed script ordering: If you need "stop → backup → update → restart" in sequence, it must all be in one script, not split across Library Items
+      ==> have recovery mechanisms in place
+    - Logging: stdout/stderr are captured in the Kandji console per-device. Also worth writing to a local log (/var/log/openclaw-remediation.log) for debugging
+
+    Monitoring
+    The Kandji dashboard will show per-device compliance status for the Library Item. Filter the device list by non-compliant to see who still needs patching.
+
+
+**via Intune**
+
+  Windows — best supported path
+
+  Intune has a native detect + remediate model (Devices > Remediations):
+
+  Detection script - run cnspec to validate
+
+  Remediation script (fires only when detection fails):
+  ```
+  # remediate.ps1
+  # Stop gateway
+  & openclaw gateway stop
+
+  # Backup (encrypted — ~/.openclaw/ has plaintext keys)
+  $backup = "$env:USERPROFILE\.openclaw-backup-$(Get-Date -Format yyyyMMdd-HHmm).tgz"
+  tar czf $backup "$env:USERPROFILE\.openclaw"
+
+  # Update
+  npm install -g openclaw@latest
+
+  # Migrate config + restart
+  & openclaw doctor --fix
+  & openclaw gateway restart
+
+  exit 0
+  ```
+
+  Assign to Azure AD groups, schedule to run hourly or daily. On next check-in after remediation, the detection script re-runs and should exit 0.
+
+  Staged rollout via deployment rings:
+  - Ring 0 (IT pilot, 5-10 devices) → Ring 1 (early adopters) → Ring 2 (broad)
+  - No built-in percentage rollout — you control pacing through group assignment timing
+
+
+
+
+
+# Post-conf feedback
 
 Mondoo console:
 - come in search for CVE-2025-53770 in global search => show me
