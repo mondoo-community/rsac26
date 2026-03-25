@@ -66,6 +66,41 @@ react2shell - React & Next.js RCE
   - CVE-2025-67779 affects versions that patched 55184 — check you're on the final patch, not an intermediate one
 - why: CVSS 10, actively exploited, affects millions of sites, trivial to exploit with no auth required, enables RCE/data exfil/internal pivoting
 
+Langflow Unauthenticated RCE
+- https://mondoo.com/vulnerability-intelligence/vulnerability/CVE-2026-33017
+- CVE-2026-33017 - published 2026.3.20, sev Critical (9.3/9.8)
+- unauthenticated RCE via unsandboxed `exec()` on the public flow build endpoint
+  - endpoint: `POST /api/v1/build_public_tmp/{flow_id}/flow` — no auth by design (public flows)
+- actively exploited in the wild — attackers compromised pipelines within 20hrs of disclosure
+  - leaked API keys, DB credentials, enabled supply chain attacks
+- affected: Langflow <= 1.8.1 (and 1.9.0 dev pre-releases)
+- update to >= 1.8.2: `pip install --upgrade langflow>=1.8.2` (or pull updated Docker image)
+  - 1.8.1 → 1.8.2 is a patch release, minimal scope, no breaking changes
+  - bundled fixes: Postgres JSON column fix, timezone fix on `flow_version.created_at` (may trigger minor DB migration)
+  - interim: block `/api/v1/build_public_tmp/` at reverse proxy / WAF
+- considerations:
+  - inventory all Langflow instances — self-hosted, no auto-update
+  - rotate all secrets/API keys on any instance that was publicly exposed
+  - if jumping from < 1.8.0, expect more substantial changes (flow versioning, DB migrations)
+  - audit logs for POST requests to `/api/v1/build_public_tmp/*/flow` with `data` body param
+- why: AI/ML infra is the new attack surface, trivial to exploit (no auth, direct exec), fast weaponization, pairs well with OpenClaw as another AI-targeted vuln
+
+Laravel Livewire v3 RCE
+- https://mondoo.com/vulnerability-intelligence/vulnerability/CVE-2025-54068
+- CVE-2025-54068 - published 2025.7.17, sev Critical (9.2), added to CISA KEV Mar 2026
+- unauthenticated RCE via improper hydration of component property updates
+  - crafted update payloads bypass validation during client-to-server state sync
+- actively exploited in the wild (EPSS ~46%)
+- affected: livewire/livewire 3.0.0-beta.1 through 3.6.3 (v1 and v2 not affected)
+- update to >= 3.6.4: `composer update livewire/livewire`
+  - 3.6.3 → 3.6.4 is security-only, no breaking changes
+  - no workarounds — patching is the only mitigation
+- considerations:
+  - Livewire may be an indirect dependency via Filament, Laravel Pulse, etc. — not visible in composer.json
+    - run `composer why livewire/livewire --tree` or `composer audit` to check
+  - inventory all Laravel projects — no auto-update, each app needs `composer update` + redeploy
+  - ~130K apps estimated affected
+- why: massive PHP/Laravel ecosystem, hydration/deserialization attack class (mirrors react2shell), hidden transitive dependency angle makes discovery non-trivial
 
 ## Post-conf feedback
 
