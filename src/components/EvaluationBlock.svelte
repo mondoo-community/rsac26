@@ -13,14 +13,14 @@
     '',
     '> Computing overall evaluation...',
     '',
-    '  ┌─────────────────────────────────────────────────┐',
-    '  │  CVE-2025-55182 (react2shell)                   │',
+    '  ┌──────────────────────────────────────────────────┐',
+    '  │  CVE-2025-55182 (react2shell)                    │',
     '  │  Overall Risk:  ██████████████████████  CRITICAL │',
     '  │  Score: 10.0    Confidence: 96%                  │',
     '  │                                                  │',
     '  │  Action: IMMEDIATE PATCHING REQUIRED             │',
-    '  │  Upgrade React to 19.0.3+ / Next.js 15.0.5+     │',
-    '  └─────────────────────────────────────────────────┘',
+    '  │  Upgrade React to 19.0.3+ / Next.js 15.0.5+      │',
+    '  └──────────────────────────────────────────────────┘',
   ]
 
   let visibleCount = $state(0)

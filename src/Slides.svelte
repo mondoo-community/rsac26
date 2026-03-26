@@ -253,6 +253,50 @@
   </div>
 </section>
 
+<section>
+  <PipelineGraph highlight={2} />
+</section>
+
+<section>
+  <h2 class="text-4xl font-bold mb-6">Why are fixes slow?</h2>
+  <p class="text-2xl op-70">Why don't people take action on findings faster?</p>
+</section>
+
+<section>
+  <h2 class="text-3xl font-bold mb-8" style="color: #3b82f6;">1: Operational Considerations</h2>
+  <div class="text-left max-w-3xl mx-auto text-base">
+    <p class="fragment op-70" data-fragment-index="0"><span class="font-bold">Downtime required</span> — KB install takes SharePoint offline, IIS restart bounces all co-hosted sites</p>
+    <p class="fragment mt-3 op-70" data-fragment-index="1"><span class="font-bold">Multi-server farms</span> — patches must go on all roles in order: DB/app tier first, then WFEs</p>
+    <p class="fragment mt-3 op-70" data-fragment-index="2"><span class="font-bold">PSConfig wizard</span> — must run on every server in the farm, in order, with its own failure modes</p>
+    <p class="fragment mt-3 op-70" data-fragment-index="3"><span class="font-bold">Machine key rotation</span> — invalidates sessions, tokens, cached creds; users get logged out</p>
+    <p class="fragment mt-3 op-70" data-fragment-index="4"><span class="font-bold">IIS restart</span> — affects co-hosted services: other web apps, APIs, ADFS</p>
+    <p class="fragment mt-3 op-70" data-fragment-index="5"><span class="font-bold">AMSI enablement</span> — config change, not a patch; may introduce performance overhead</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="text-3xl font-bold mb-8" style="color: #3b82f6;">2: Mitigation vs Fix</h2>
+  <div class="text-left max-w-3xl mx-auto text-base">
+    <p class="fragment op-70" data-fragment-index="0"><span class="font-bold" style="color: #06b6d4;">1. Network mitigation</span> <span class="op-50">(low disruption)</span> — restrict access, block exploit patterns at WAF/firewall</p>
+    <p class="fragment mt-3 op-70" data-fragment-index="1"><span class="font-bold" style="color: #3b82f6;">2. AMSI enablement</span> <span class="op-50">(medium disruption)</span> — detection without patching, catches known signatures</p>
+    <p class="fragment mt-3 op-70" data-fragment-index="2"><span class="font-bold" style="color: #a855f7;">3. KB patches + PSConfig</span> <span class="op-50">(high disruption)</span> — the actual fix, requires maintenance window</p>
+    <p class="fragment mt-3 op-70" data-fragment-index="3"><span class="font-bold" style="color: #ec4899;">4. Machine key rotation</span> <span class="op-50">(high disruption)</span> — assume keys compromised (APT27/APT31)</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="text-3xl font-bold mb-8" style="color: #3b82f6;">3: Pre-flight &amp; Rollback</h2>
+  <div class="text-left max-w-3xl mx-auto text-base">
+    <p class="font-bold op-50 mb-3">Before patching:</p>
+    <p class="op-70">Check for IOCs — SuspSignoutReq.A, HijackSharePointServer.A, MachineKeyFinder.DA!amsi</p>
+    <p class="mt-2 op-70">If compromised: incident response first, then patch</p>
+    <p class="font-bold op-50 mt-6 mb-3">Rollback:</p>
+    <p class="op-70">KBs can be uninstalled, but PSConfig schema changes cannot — full farm DB backup required</p>
+    <p class="mt-2 op-70">Machine key rotation is irreversible without backed-up keys</p>
+    <p class="mt-2 op-70">AMSI can be disabled easily — low-risk change</p>
+  </div>
+</section>
+
 <section data-starfield>
   <h1 class="text-5xl font-bold" style="color: #a855f7;">ClawJacked</h1>
   <p class="text-2xl mt-4 op-70">CVE-2026-32027</p>

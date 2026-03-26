@@ -143,6 +143,11 @@
   .connector {
     flex-shrink: 0;
     margin: 0 -2px;
+    z-index: 0;
+  }
+
+  .step, .step-static {
+    z-index: 1;
   }
 
 </style>
