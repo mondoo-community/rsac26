@@ -24,6 +24,7 @@
       controls: false,
       navigationMode: 'linear',
       transition: 'none',
+      autoSlideStoppable: false,
     })
     deck.initialize()
 
