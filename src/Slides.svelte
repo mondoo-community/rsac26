@@ -12,6 +12,7 @@
   import KandjiBlock from './components/KandjiBlock.svelte'
   import IntuneBlock from './components/IntuneBlock.svelte'
   import AgentOverview from './components/AgentOverview.svelte'
+  import CumulativeChart from './components/CumulativeChart.svelte'
   import AgentModel511 from './components/AgentModel511.svelte'
   import NutritionBadge from './components/NutritionBadge.svelte'
 </script>
@@ -387,6 +388,12 @@
 
 <section data-background-image={controlRoomBg} data-background-size="cover" data-background-opacity="0.25">
   <h1 class="text-5xl font-bold">Stay in control</h1>
+</section>
+
+<section>
+  <h2 class="text-3xl font-bold mb-6">Cumulative Remediations</h2>
+  <p class="text-base op-50 mb-6">Historical totals: how much has been done</p>
+  <CumulativeChart />
 </section>
 
 <section data-starfield>
