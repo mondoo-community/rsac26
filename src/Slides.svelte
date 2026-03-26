@@ -43,8 +43,23 @@
 </section>
 
 <section data-pipeline>
-  <h2 class="text-4xl font-bold mb-12">Workflow overview</h2>
+  <h2 class="text-4xl font-bold mb-12">Agentic workflow</h2>
   <PipelineGraph />
+</section>
+
+<section data-starfield>
+  <h1 class="text-5xl font-bold" style="color: #ec4899;">react2shell</h1>
+  <p class="text-2xl mt-4 op-70">CVE-2025-55182</p>
+</section>
+
+<section data-starfield>
+  <h1 class="text-5xl font-bold" style="color: #3b82f6;">SharePoint RCE</h1>
+  <p class="text-2xl mt-4 op-70">CVE-2025-53770</p>
+</section>
+
+<section data-starfield>
+  <h1 class="text-5xl font-bold" style="color: #a855f7;">ClawJacked</h1>
+  <p class="text-2xl mt-4 op-70">CVE-2026-32027</p>
 </section>
 
 <section data-starfield>
