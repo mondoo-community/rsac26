@@ -287,7 +287,7 @@
       <p class="op-50 mt-1 text-sm">SuspSignoutReq.A</p>
       <p class="op-50 mt-1 text-sm">HijackSharePointServer.A</p>
       <p class="op-50 mt-1 text-sm">MachineKeyFinder.DA!amsi</p>
-      <p class="op-70 mt-4">=> Incident Response</p>
+      <p class="op-70 mt-4">=&gt; Incident Response</p>
     </div>
     <div class="fragment flex-1 text-center" data-fragment-index="1" style="background: rgba(255,255,255,0.04); border: 1.5px solid rgba(59,130,246,0.4); border-radius: 12px; padding: 1.5rem;">
       <h3 class="font-bold text-xl mb-4" style="color: #3b82f6;">Rollback</h3>
@@ -312,6 +312,14 @@
     <p class="fragment mt-4" data-fragment-index="1" data-autoslide="1000"><span class="font-bold">Affected:</span> <span class="op-70">OpenClaw versions before 2026.2.26</span></p>
     <p class="fragment mt-4" data-fragment-index="2" data-autoslide="1000"><span class="font-bold">Widely deployed AI tool</span> <span class="op-70">— massive blast radius, in the news</span></p>
     <p class="fragment mt-4" data-fragment-index="3" data-autoslide="9999999"><span class="font-bold">Threats:</span> <span class="op-70">Data theft via browser hijack, credential exfiltration, session hijacking</span></p>
+  </div>
+</section>
+
+<section>
+  <h2 class="text-4xl font-bold mb-6">Last one!</h2>
+  <div class="max-w-3xl mx-auto text-lg text-center">
+    <p class="op-70"><span class="font-bold" style="color: #3b82f6;">Analysis:</span> Endpoints, exploitable, news, massive blast radius</p>
+    <p class="op-70 mt-4"><span class="font-bold" style="color: #a855f7;">Plan:</span> Patch and update the components</p>
   </div>
 </section>
 
