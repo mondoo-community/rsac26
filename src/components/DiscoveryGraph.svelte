@@ -1,7 +1,11 @@
+<script>
+  import reactImg from '/images/react2shell.png'
+</script>
+
 <div class="discovery-slide">
   <h2 class="text-3xl font-bold mb-2" style="color: #ec4899;">Discover</h2>
   <p class="text-lg op-70 mb-6">Where do we find react2shell?</p>
-  <img src="/images/react2shell.png" alt="Discovery overview" class="discovery-img" />
+  <img src={reactImg} alt="Discovery overview" class="discovery-img" />
 </div>
 
 <style>
