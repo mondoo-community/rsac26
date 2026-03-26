@@ -8,6 +8,8 @@
   import AnalysisBlock from './components/AnalysisBlock.svelte'
   import EvaluationBlock from './components/EvaluationBlock.svelte'
   import OpsConsiderations from './components/OpsConsiderations.svelte'
+  import KandjiBlock from './components/KandjiBlock.svelte'
+  import IntuneBlock from './components/IntuneBlock.svelte'
   import AgentModel511 from './components/AgentModel511.svelte'
   import NutritionBadge from './components/NutritionBadge.svelte'
 </script>
@@ -363,6 +365,18 @@
       <p class="text-sm mt-2 op-70">PowerShell</p>
     </div>
   </div>
+</section>
+
+<section data-kandji>
+  <h2 class="text-3xl font-bold mb-2" style="color: #a855f7;">Kandji</h2>
+  <p class="text-lg op-70 mb-6">Audit and remediation scripts configured</p>
+  <KandjiBlock />
+</section>
+
+<section data-intune>
+  <h2 class="text-3xl font-bold mb-2" style="color: #3b82f6;">Intune</h2>
+  <p class="text-lg op-70 mb-6">Detect + remediate via PowerShell</p>
+  <IntuneBlock />
 </section>
 
 <section data-starfield>
