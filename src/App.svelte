@@ -12,7 +12,7 @@
   onMount(() => {
     const deck = new Reveal({
       hash: true,
-      progress: true,
+      progress: false,
       controls: false,
       navigationMode: 'linear',
       transition: 'none',
