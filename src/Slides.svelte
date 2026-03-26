@@ -3,7 +3,10 @@
   import PipelineGraph from './components/PipelineGraph.svelte'
   import DiscoveryGraph from './components/DiscoveryGraph.svelte'
   import CveStream from './components/CveStream.svelte'
+  import AnalysisBlock from './components/AnalysisBlock.svelte'
+  import EvaluationBlock from './components/EvaluationBlock.svelte'
   import AgentModel511 from './components/AgentModel511.svelte'
+  import NutritionBadge from './components/NutritionBadge.svelte'
 </script>
 
 <section data-starfield>
@@ -88,55 +91,151 @@
 <section>
   <h3 class="text-xl op-50 mb-2">Agent 1</h3>
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Business Impact — does it matter?</h2>
-  <div class="text-left max-w-3xl mx-auto text-lg">
-    <p><span class="op-70">What do the affected React/Next.js apps do?</span> <span class="op-50">Customer-facing SaaS, internal tools, marketing sites?</span></p>
-    <p class="mt-4"><span class="op-70">What data flows through them?</span> <span class="op-50">PII, payment, auth tokens?</span></p>
-    <p class="mt-4"><span class="op-70">Revenue impact if compromised</span> <span class="op-50">vs. a static marketing site</span></p>
+  <div class="mb-8">
+    <NutritionBadge
+      baseScore="10.0"
+      baseLabel="Critical"
+      highlight={['base-score', 'business']}
+      categories={[
+        { name: 'business', label: 'Business', impact: 1, isActive: true, factor: 'business' },
+        { name: 'surface', label: 'Atk Surface', impact: 1, isActive: true, factor: 'surface' },
+        { name: 'exploit', label: 'Exploits', impact: 1, isActive: true, factor: 'exploit' },
+        { name: 'connection', label: 'Connection', impact: 1, isActive: true, factor: 'connection' },
+        { name: 'news', label: 'News', impact: 0.6, isActive: true, factor: 'news' },
+      ]}
+    />
+  </div>
+  <div class="max-w-3xl mx-auto text-lg text-center">
+    <p class="op-70">Customer-facing, critical systems vs. internal tools, test systems</p>
   </div>
 </section>
 
-<section>
+<section data-analysis>
   <h3 class="text-xl op-50 mb-2">Agent 2</h3>
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Attack Surface — is it real?</h2>
-  <div class="text-left max-w-3xl mx-auto text-lg">
-    <p><span class="op-70">React 19+ only</span> <span class="op-50">— React 18 and below are not affected</span></p>
-    <p class="mt-4"><span class="op-70">React Server Components specifically</span> <span class="op-50">— client-side-only apps are not vulnerable</span></p>
-    <p class="mt-4"><span class="op-70">Check actual packages:</span> <span class="op-50">react-server-dom-webpack, -turbopack, -parcel</span></p>
-    <p class="mt-4"><span class="op-70">Next.js App Router vs Pages Router</span> <span class="op-50">— Pages Router does not use RSC</span></p>
-    <p class="mt-4"><span class="op-70">Server Functions ("use server") must exist</span> <span class="op-50">for the endpoint to be reachable</span></p>
-    <p class="mt-4"><span class="op-70">Static/SSG-only builds are safe</span> <span class="op-50">— no running server, nothing to exploit</span></p>
-    <p class="mt-4"><span class="op-70">Is it internet-facing?</span> <span class="op-50">Internal app behind VPN = very different risk profile</span></p>
+  <div class="mb-8">
+    <NutritionBadge baseScore="10.0" highlight={['surface']} categories={[
+      { name: 'business', label: 'Business', impact: 1, isActive: true, factor: 'business' },
+      { name: 'surface', label: 'Atk Surface', impact: 1, isActive: true, factor: 'surface' },
+      { name: 'exploit', label: 'Exploits', impact: 1, isActive: true, factor: 'exploit' },
+      { name: 'connection', label: 'Connection', impact: 1, isActive: true, factor: 'connection' },
+      { name: 'news', label: 'News', impact: 0.6, isActive: true, factor: 'news' },
+    ]} />
   </div>
+  <div class="max-w-3xl mx-auto text-lg text-center">
+    <p class="op-70 mb-6">Drill into versions, packages, runtime, and network exposure</p>
+  </div>
+  <AnalysisBlock />
 </section>
 
 <section>
   <h3 class="text-xl op-50 mb-2">Agent 3</h3>
-  <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Blast Radius — does it hurt?</h2>
-  <div class="text-left max-w-3xl mx-auto text-lg">
-    <p><span class="op-70">Environment variables</span> <span class="op-50">— API keys, DB connection strings, third-party secrets</span></p>
-    <p class="mt-4"><span class="op-70">Internal network pivoting</span> <span class="op-50">— databases, internal APIs, other services</span></p>
-    <p class="mt-4"><span class="op-70">Isolation level</span> <span class="op-50">— container with limited scope vs. VM with broad access</span></p>
-    <p class="mt-4"><span class="op-70">Shared infrastructure</span> <span class="op-50">— multiple apps on the same Node server or cluster</span></p>
-    <p class="mt-4"><span class="op-70">Supply chain angle</span> <span class="op-50">— build/preview server compromise propagating to production</span></p>
+  <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Exploitability — can they do it?</h2>
+  <div class="mb-8">
+    <NutritionBadge baseScore="10.0" highlight={['exploit']} categories={[
+      { name: 'business', label: 'Business', impact: 1, isActive: true, factor: 'business' },
+      { name: 'surface', label: 'Atk Surface', impact: 1, isActive: true, factor: 'surface' },
+      { name: 'exploit', label: 'Exploits', impact: 1, isActive: true, factor: 'exploit' },
+      { name: 'connection', label: 'Connection', impact: 1, isActive: true, factor: 'connection' },
+      { name: 'news', label: 'News', impact: 0.6, isActive: true, factor: 'news' },
+    ]} />
+  </div>
+  <div class="max-w-3xl mx-auto text-lg text-center">
+    <p class="op-70">Public exploits exist, no auth required, actively exploited in the wild</p>
   </div>
 </section>
 
 <section>
   <h3 class="text-xl op-50 mb-2">Agent 4</h3>
-  <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Exploitability — can they do it?</h2>
-  <div class="text-left max-w-3xl mx-auto text-lg">
-    <p><span class="font-bold op-70">CVSS 10</span> <span class="op-50">— no auth, no user interaction, network-exploitable</span></p>
-    <p class="mt-4"><span class="op-70">Public exploits exist</span> <span class="op-50">— actively exploited in the wild</span></p>
+  <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Blast Radius — does it hurt?</h2>
+  <div class="mb-8">
+    <NutritionBadge baseScore="10.0" highlight={['connection']} categories={[
+      { name: 'business', label: 'Business', impact: 1, isActive: true, factor: 'business' },
+      { name: 'surface', label: 'Atk Surface', impact: 1, isActive: true, factor: 'surface' },
+      { name: 'exploit', label: 'Exploits', impact: 1, isActive: true, factor: 'exploit' },
+      { name: 'connection', label: 'Connection', impact: 1, isActive: true, factor: 'connection' },
+      { name: 'news', label: 'News', impact: 0.6, isActive: true, factor: 'news' },
+    ]} />
   </div>
+  <div class="max-w-3xl mx-auto text-lg text-center">
+    <p class="op-70 mb-6">RCE on the server process — what can the attacker reach?</p>
+  </div>
+
+  <!-- Blast radius diagram -->
+  <svg viewBox="0 0 700 260" style="width: 650px; margin: 0 auto; display: block;">
+    <!-- Compromised service (center) -->
+    <rect x="260" y="90" width="180" height="50" rx="8" fill="#dc2626" fill-opacity="0.15" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="350" y="120" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" font-family="IBM Plex Mono, monospace">Service</text>
+
+    <!-- Env vars / secrets -->
+    <rect x="10" y="10" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
+    <text x="85" y="28" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10" font-family="IBM Plex Mono, monospace">ENV VARS</text>
+    <text x="85" y="42" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="IBM Plex Mono, monospace">API keys, DB creds</text>
+    <line x1="160" y1="32" x2="260" y2="100" stroke="rgba(220,38,38,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+    <!-- Database -->
+    <rect x="10" y="170" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
+    <text x="85" y="188" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10" font-family="IBM Plex Mono, monospace">Databases</text>
+    <text x="85" y="202" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="IBM Plex Mono, monospace">PostgreSQL, Redis, S3</text>
+    <line x1="160" y1="192" x2="260" y2="130" stroke="rgba(220,38,38,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+    <!-- User data -->
+    <rect x="540" y="10" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
+    <text x="615" y="28" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10" font-family="IBM Plex Mono, monospace">User Data</text>
+    <text x="615" y="42" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="IBM Plex Mono, monospace">PII, tokens, sessions</text>
+    <line x1="540" y1="32" x2="440" y2="100" stroke="rgba(220,38,38,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+    <!-- Internal APIs -->
+    <rect x="540" y="105" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
+    <text x="615" y="123" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10" font-family="IBM Plex Mono, monospace">Internal APIs</text>
+    <text x="615" y="137" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="IBM Plex Mono, monospace">payment, auth, admin</text>
+    <line x1="540" y1="127" x2="440" y2="118" stroke="rgba(220,38,38,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+    <!-- Other services / supply chain -->
+    <rect x="540" y="200" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
+    <text x="615" y="218" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10" font-family="IBM Plex Mono, monospace">Other Services</text>
+    <text x="615" y="232" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="IBM Plex Mono, monospace">build servers, clusters</text>
+    <line x1="540" y1="222" x2="440" y2="135" stroke="rgba(220,38,38,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+    <!-- Internal network -->
+    <rect x="220" y="200" width="260" height="44" rx="6" fill="rgba(220,38,38,0.06)" stroke="rgba(220,38,38,0.3)" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="350" y="226" text-anchor="middle" fill="rgba(220,38,38,0.6)" font-size="10" font-family="IBM Plex Mono, monospace">← internal network pivot →</text>
+  </svg>
 </section>
 
 <section>
   <h3 class="text-xl op-50 mb-2">Agent 5</h3>
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">News & Intel</h2>
-  <div class="text-left max-w-3xl mx-auto text-lg">
-    <p><span class="op-70">Named vulnerability ("react2shell")</span> <span class="op-50">— major coverage</span></p>
-    <p class="mt-4"><span class="op-70">React/Next.js is one of the most widely used web frameworks</span> <span class="op-50">— high visibility</span></p>
+  <div class="mb-8">
+    <NutritionBadge baseScore="10.0" highlight={['news']} categories={[
+      { name: 'business', label: 'Business', impact: 1, isActive: true, factor: 'business' },
+      { name: 'surface', label: 'Atk Surface', impact: 1, isActive: true, factor: 'surface' },
+      { name: 'exploit', label: 'Exploits', impact: 1, isActive: true, factor: 'exploit' },
+      { name: 'connection', label: 'Connection', impact: 1, isActive: true, factor: 'connection' },
+      { name: 'news', label: 'News', impact: 0.6, isActive: true, factor: 'news' },
+    ]} />
   </div>
+  <div class="max-w-3xl mx-auto text-lg text-center">
+    <p class="op-70 mb-8">Named vulnerability with major coverage across the most widely used web framework</p>
+  </div>
+  <div class="max-w-2xl mx-auto text-left text-sm" style="font-family: 'IBM Plex Mono', monospace;">
+    <p class="op-50 mb-3">Coverage:</p>
+    <p class="op-70 mb-2">→ mondoo.com/blog/how-to-fix-critical-react-and-next-js-vulnerabilities</p>
+    <p class="op-70 mb-2">→ bleepingcomputer.com/news/security/react2shell-rce</p>
+    <p class="op-70 mb-2">→ thehackernews.com/2025/12/react-nextjs-critical-rce</p>
+    <p class="op-70 mb-2">→ securityweek.com/react-server-components-deserialization-flaw</p>
+    <p class="op-70">→ cve.org/CVERecord?id=CVE-2025-55182</p>
+    <p class="op-50 mt-2">...</p>
+  </div>
+</section>
+
+<section data-evaluation>
+  <h3 class="text-xl op-50 mb-2">Agent 6</h3>
+  <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">AI Evaluation</h2>
+  <div class="max-w-3xl mx-auto text-lg text-center">
+    <p class="op-70 mb-6">Adjust overall evaluation based on previous agents</p>
+  </div>
+  <EvaluationBlock />
 </section>
 
 <section data-starfield>
