@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte'
 
-  import 'reveal.js/reset.css'
-  import 'reveal.js/reveal.css'
+  import 'reveal.js/dist/reset.css'
+  import 'reveal.js/dist/reveal.css'
 
   import Reveal from 'reveal.js'
   import Slides from './Slides.svelte'

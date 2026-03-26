@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-
   const steps = ['Discover', 'Analyze', 'Plan', 'Fix', 'Report']
   const PURPLE = '#a855f7'
   const WHITE = 'rgba(255, 255, 255, 0.15)'
@@ -13,13 +12,13 @@
   let containerEl: HTMLDivElement
 
   onMount(() => {
-    // After reveal processes fragments, check which are visible
     const update = () => {
       const fragments = containerEl.querySelectorAll('.fragment')
       let lastVisible = -1
       fragments.forEach((f, i) => {
         if (f.classList.contains('visible')) lastVisible = i
       })
+
       for (let i = 0; i < steps.length; i++) {
         visible[i] = i <= lastVisible
         if (i > 0) lines[i - 1] = i <= lastVisible
@@ -27,14 +26,12 @@
       active = lastVisible
     }
 
-    // Listen on the reveal element for fragment events
     const revealEl = containerEl.closest('.reveal')
     if (revealEl) {
       revealEl.addEventListener('fragmentshown', update)
       revealEl.addEventListener('fragmenthidden', update)
     }
 
-    // Check initial state
     update()
 
     return () => {
@@ -66,6 +63,7 @@
     align-items: center;
     justify-content: center;
     gap: 0;
+    position: relative;
   }
 
   .step {
@@ -83,7 +81,6 @@
     transform: scale(1);
   }
 
-  /* Hide reveal's default fragment styling, we handle it ourselves */
   .step.fragment.visible {
     opacity: 0;
     transform: scale(0.5);
@@ -116,4 +113,5 @@
   .connector {
     flex-shrink: 0;
   }
+
 </style>
