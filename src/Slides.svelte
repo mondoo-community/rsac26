@@ -52,6 +52,14 @@
   <p class="text-2xl mt-4 op-70">CVE-2025-55182</p>
 </section>
 
+<section>
+  <PipelineGraph highlight={0} />
+</section>
+
+<section>
+  <PipelineGraph highlight={1} />
+</section>
+
 <section data-starfield>
   <h1 class="text-5xl font-bold" style="color: #3b82f6;">SharePoint RCE</h1>
   <p class="text-2xl mt-4 op-70">CVE-2025-53770</p>

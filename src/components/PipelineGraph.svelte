@@ -1,9 +1,14 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+
+  let { highlight = -1 } = $props<{ highlight?: number }>()
+
   const steps = ['Discover', 'Analyze', 'Plan', 'Fix', 'Report']
   const PURPLE = '#a855f7'
-  const WHITE = 'rgba(255, 255, 255, 0.15)'
-  const LINE_COLOR = 'rgba(255, 255, 255, 0.2)'
+  const WHITE = '#2a2a3a'
+  const LINE_COLOR = '#2a2a3a'
+
+  const isStatic = $derived(highlight >= 0)
 
   let visible: boolean[] = $state(Array(steps.length).fill(false))
   let lines: boolean[] = $state(Array(steps.length - 1).fill(false))
@@ -12,6 +17,8 @@
   let containerEl: HTMLDivElement
 
   onMount(() => {
+    if (isStatic) return
+
     const update = () => {
       const fragments = containerEl.querySelectorAll('.fragment')
       let lastVisible = -1
@@ -47,13 +54,20 @@
   {#each steps as step, i}
     {#if i > 0}
       <svg class="connector" width="60" height="4" viewBox="0 0 60 4" style="margin-bottom: 2rem;">
-        <line x1="0" y1="2" x2="60" y2="2" stroke={LINE_COLOR} stroke-width="2" stroke-dasharray="60" stroke-dashoffset={lines[i - 1] ? 0 : 60} style="transition: stroke-dashoffset 0.4s ease-out;" />
+        <line x1="0" y1="2" x2="60" y2="2" stroke={LINE_COLOR} stroke-width="2" stroke-dasharray="60" stroke-dashoffset={isStatic || lines[i - 1] ? 0 : 60} style="transition: stroke-dashoffset 0.4s ease-out;" />
       </svg>
     {/if}
-    <div class="step fragment" data-fragment-index={i} class:shown={visible[i]}>
-      <div class="circle" style="background: {active === i ? PURPLE : WHITE}; transition: background 0.3s ease;">{i + 1}</div>
-      <div class="label">{step}</div>
-    </div>
+    {#if isStatic}
+      <div class="step-static">
+        <div class="circle" class:pulse={highlight === i} style="background: {highlight === i ? PURPLE : WHITE};">{i + 1}</div>
+        <div class="label">{step}</div>
+      </div>
+    {:else}
+      <div class="step fragment" data-fragment-index={i} class:shown={visible[i]}>
+        <div class="circle" style="background: {active === i ? PURPLE : WHITE}; transition: background 0.3s ease;">{i + 1}</div>
+        <div class="label">{step}</div>
+      </div>
+    {/if}
   {/each}
 </div>
 
@@ -110,8 +124,25 @@
     white-space: nowrap;
   }
 
+  .step-static {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 4px 1px rgba(168, 85, 247, 0.6); }
+    50% { box-shadow: 0 0 20px 8px rgba(168, 85, 247, 0.3); }
+  }
+
   .connector {
     flex-shrink: 0;
+    margin: 0 -2px;
   }
 
 </style>
