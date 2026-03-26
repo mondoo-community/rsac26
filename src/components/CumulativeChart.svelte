@@ -151,10 +151,28 @@
       .attr('fill', 'none').attr('stroke', '#a855f7').attr('stroke-width', 2).attr('d', lineRem)
 
     // Animate clip rect to reveal chart left-to-right
-    clipRect.transition()
-      .duration(2500)
-      .ease(d3.easeLinear)
-      .attr('width', width + 10)
+    function playAnimation() {
+      clipRect.interrupt()
+      clipRect.attr('width', 0)
+        .transition()
+        .duration(2500)
+        .ease(d3.easeLinear)
+        .attr('width', width + 10)
+    }
+
+    // Observe slide visibility
+    const section = svgEl.closest('section')
+    if (section) {
+      const observer = new MutationObserver(() => {
+        if (section.classList.contains('present')) {
+          playAnimation()
+        }
+      })
+      observer.observe(section, { attributes: true, attributeFilter: ['class'] })
+      if (section.classList.contains('present')) playAnimation()
+    } else {
+      playAnimation()
+    }
 
     // X axis with quarterly labels
     g.append('g')
