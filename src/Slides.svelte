@@ -330,6 +330,10 @@
   </div>
 </section>
 
+<section>
+  <PipelineGraph highlight={3} />
+</section>
+
 <section data-background-image={autopilotBg} data-background-size="cover" data-background-opacity="0.3">
   <h1 class="text-5xl font-bold">Auto-pilot remediations</h1>
 </section>
