@@ -5,6 +5,7 @@
   import CveStream from './components/CveStream.svelte'
   import AnalysisBlock from './components/AnalysisBlock.svelte'
   import EvaluationBlock from './components/EvaluationBlock.svelte'
+  import OpsConsiderations from './components/OpsConsiderations.svelte'
   import AgentModel511 from './components/AgentModel511.svelte'
   import NutritionBadge from './components/NutritionBadge.svelte'
 </script>
@@ -262,16 +263,9 @@
   <p class="text-2xl op-70">Why don't people take action on findings faster?</p>
 </section>
 
-<section>
+<section data-ops-considerations>
   <h2 class="text-3xl font-bold mb-8" style="color: #3b82f6;">1: Operational Considerations</h2>
-  <div class="text-left max-w-3xl mx-auto text-base">
-    <p class="fragment op-70" data-fragment-index="0"><span class="font-bold">Downtime required</span> — KB install takes SharePoint offline, IIS restart bounces all co-hosted sites</p>
-    <p class="fragment mt-3 op-70" data-fragment-index="1"><span class="font-bold">Multi-server farms</span> — patches must go on all roles in order: DB/app tier first, then WFEs</p>
-    <p class="fragment mt-3 op-70" data-fragment-index="2"><span class="font-bold">PSConfig wizard</span> — must run on every server in the farm, in order, with its own failure modes</p>
-    <p class="fragment mt-3 op-70" data-fragment-index="3"><span class="font-bold">Machine key rotation</span> — invalidates sessions, tokens, cached creds; users get logged out</p>
-    <p class="fragment mt-3 op-70" data-fragment-index="4"><span class="font-bold">IIS restart</span> — affects co-hosted services: other web apps, APIs, ADFS</p>
-    <p class="fragment mt-3 op-70" data-fragment-index="5"><span class="font-bold">AMSI enablement</span> — config change, not a patch; may introduce performance overhead</p>
-  </div>
+  <OpsConsiderations />
 </section>
 
 <section>
@@ -285,15 +279,24 @@
 </section>
 
 <section>
-  <h2 class="text-3xl font-bold mb-8" style="color: #3b82f6;">3: Pre-flight &amp; Rollback</h2>
-  <div class="text-left max-w-3xl mx-auto text-base">
-    <p class="font-bold op-50 mb-3">Before patching:</p>
-    <p class="op-70">Check for IOCs — SuspSignoutReq.A, HijackSharePointServer.A, MachineKeyFinder.DA!amsi</p>
-    <p class="mt-2 op-70">If compromised: incident response first, then patch</p>
-    <p class="font-bold op-50 mt-6 mb-3">Rollback:</p>
-    <p class="op-70">KBs can be uninstalled, but PSConfig schema changes cannot — full farm DB backup required</p>
-    <p class="mt-2 op-70">Machine key rotation is irreversible without backed-up keys</p>
-    <p class="mt-2 op-70">AMSI can be disabled easily — low-risk change</p>
+  <h2 class="text-3xl font-bold mb-8" style="color: #3b82f6;">3: Pre-flight + Rollback</h2>
+  <div class="flex gap-8 max-w-4xl mx-auto text-base">
+    <div class="fragment semi-fade-out flex-1 text-center" data-fragment-index="1" style="background: rgba(255,255,255,0.04); border: 1.5px solid rgba(168,85,247,0.4); border-radius: 12px; padding: 1.5rem;">
+      <h3 class="font-bold text-xl mb-4" style="color: #a855f7;">Pre-flight</h3>
+      <p class="op-70">Check for IOCs</p>
+      <p class="op-50 mt-1 text-sm">SuspSignoutReq.A</p>
+      <p class="op-50 mt-1 text-sm">HijackSharePointServer.A</p>
+      <p class="op-50 mt-1 text-sm">MachineKeyFinder.DA!amsi</p>
+      <p class="op-70 mt-4">=> Incident Response</p>
+    </div>
+    <div class="fragment flex-1 text-center" data-fragment-index="1" style="background: rgba(255,255,255,0.04); border: 1.5px solid rgba(59,130,246,0.4); border-radius: 12px; padding: 1.5rem;">
+      <h3 class="font-bold text-xl mb-4" style="color: #3b82f6;">Rollback</h3>
+      <p class="op-70">KBs can be uninstalled</p>
+      <p class="op-50 mt-1 text-sm">but PSConfig schema changes cannot<br/>=&gt; full farm DB backup required</p>
+      <p class="op-70 mt-4">Machine key rotation is irreversible</p>
+      <p class="op-50 mt-1 text-sm">without backed-up keys</p>
+      <p class="op-70 mt-4">AMSI can be disabled easily</p>
+    </div>
   </div>
 </section>
 
