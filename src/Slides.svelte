@@ -1,9 +1,9 @@
 <script lang="ts">
-  import MondooLogo from './components/MondooLogo.svelte'
+  import MondooLogoFull from './components/MondooLogoFull.svelte'
 </script>
 
-<section>
-  <MondooLogo width={240} height={120} />
+<section data-starfield>
+  <MondooLogoFull width={555} height={108} />
 </section>
 
 <section>
