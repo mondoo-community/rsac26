@@ -1,5 +1,6 @@
 <script lang="ts">
   import MondooLogoFull from './components/MondooLogoFull.svelte'
+  import PipelineGraph from './components/PipelineGraph.svelte'
 </script>
 
 <section data-starfield>
@@ -11,6 +12,11 @@
   <h2 class="text-3xl mt-4 op-80">Vulnerability Management Transformed</h2>
   <p class="mt-8 text-lg op-60">Dominik Richter</p>
   <p class="text-base op-40">dom@mondoo.com</p>
+</section>
+
+<section data-pipeline>
+  <h2 class="text-4xl font-bold mb-12">Workflow overview</h2>
+  <PipelineGraph />
 </section>
 
 <section data-starfield>
