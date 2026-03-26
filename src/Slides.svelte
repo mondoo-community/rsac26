@@ -5,6 +5,7 @@
   import CveStream from './components/CveStream.svelte'
   import autopilotBg from '/images/autopilot-bg.png'
   import codingBg from '/images/coding-bg.jpg'
+  import controlRoomBg from '/images/control-room-bg.jpg'
   import AnalysisBlock from './components/AnalysisBlock.svelte'
   import EvaluationBlock from './components/EvaluationBlock.svelte'
   import OpsConsiderations from './components/OpsConsiderations.svelte'
@@ -382,6 +383,10 @@
 
 <section>
   <AgentOverview />
+</section>
+
+<section data-background-image={controlRoomBg} data-background-size="cover" data-background-opacity="0.25">
+  <h1 class="text-5xl font-bold">Stay in control</h1>
 </section>
 
 <section data-starfield>
