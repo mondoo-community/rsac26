@@ -3,7 +3,7 @@
 
   let { highlight = -1 } = $props<{ highlight?: number }>()
 
-  const steps = ['Discover', 'Analyze', 'Plan', 'Fix', 'Report']
+  const steps = ['Discover', 'Prioritize', 'Plan', 'Fix', 'Report']
   const PURPLE = '#a855f7'
   const WHITE = '#2a2a3a'
   const LINE_COLOR = '#2a2a3a'

@@ -2,6 +2,7 @@
   import MondooLogoFull from './components/MondooLogoFull.svelte'
   import PipelineGraph from './components/PipelineGraph.svelte'
   import DiscoveryGraph from './components/DiscoveryGraph.svelte'
+  import CveStream from './components/CveStream.svelte'
 </script>
 
 <section data-starfield>
@@ -69,6 +70,10 @@
 
 <section>
   <DiscoveryGraph />
+</section>
+
+<section data-cve-stream>
+  <CveStream />
 </section>
 
 <section>

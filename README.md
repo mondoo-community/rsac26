@@ -32,7 +32,7 @@ Step 1: Discover:
   - likely also picked up (if you manage them): developer workstations
 - scan is cheap, find all the stuff, but what matters?
 
-Step 2: Analyze
+Step 2: Prioritize
 using agentic via a 511 model (5 agents, 1 AI evaluation, 1 orchestration)
 
 1. Business impact — does it matter?
@@ -270,7 +270,7 @@ Triage: analyze + plan
   - mql agents for structuring, cnspec agents for assessments
   - operational considerations (fast, don't mess with production workloads, don't mess up APIs, scale...)
 
-### Analyze
+### Prioritize
 
 - input: findings + context + historic (asset/software/resources)
 - prioritize using major risk categories:
