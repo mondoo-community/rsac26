@@ -1,6 +1,7 @@
 <script lang="ts">
   import MondooLogoFull from './components/MondooLogoFull.svelte'
   import PipelineGraph from './components/PipelineGraph.svelte'
+  import DiscoveryGraph from './components/DiscoveryGraph.svelte'
 </script>
 
 <section data-starfield>
@@ -64,6 +65,10 @@
 
 <section>
   <PipelineGraph highlight={0} />
+</section>
+
+<section>
+  <DiscoveryGraph />
 </section>
 
 <section>
