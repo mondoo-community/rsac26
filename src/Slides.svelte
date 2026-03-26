@@ -10,6 +10,7 @@
   import OpsConsiderations from './components/OpsConsiderations.svelte'
   import KandjiBlock from './components/KandjiBlock.svelte'
   import IntuneBlock from './components/IntuneBlock.svelte'
+  import AgentOverview from './components/AgentOverview.svelte'
   import AgentModel511 from './components/AgentModel511.svelte'
   import NutritionBadge from './components/NutritionBadge.svelte'
 </script>
@@ -380,53 +381,7 @@
 </section>
 
 <section>
-  <h2 class="text-4xl font-bold mb-10">Agent Overview</h2>
-  <div class="flex gap-6 justify-center max-w-5xl mx-auto text-sm">
-
-    <div class="fragment flex-1 text-center" data-fragment-index="0" style="background: #2a2a3a; border: 1px solid rgba(236,72,153,0.4); border-radius: 10px; padding: 1rem;">
-      <h3 class="font-bold text-base mb-3" style="color: #ec4899;">Discover</h3>
-      <p class="op-50 mb-2">Scanners</p>
-      <p class="op-70">Git repos</p>
-      <p class="op-70">CI/CD</p>
-      <p class="op-70">Containers</p>
-      <p class="op-70">VMs / Servers</p>
-      <p class="op-70">Endpoints</p>
-    </div>
-
-    <div class="fragment flex-1 text-center" data-fragment-index="1" style="background: #2a2a3a; border: 1px solid rgba(168,85,247,0.4); border-radius: 10px; padding: 1rem;">
-      <h3 class="font-bold text-base mb-3" style="color: #a855f7;">Prioritize</h3>
-      <p class="op-50 mb-2">5-1-1 Model</p>
-      <p class="op-70">Business Impact</p>
-      <p class="op-70">Attack Surface</p>
-      <p class="op-70">Exploitability</p>
-      <p class="op-70">Blast Radius</p>
-      <p class="op-70">News & Intel</p>
-      <p class="op-50 mt-2">+ AI Evaluation</p>
-      <p class="op-50">+ Orchestration</p>
-    </div>
-
-    <div class="fragment flex-1 text-center" data-fragment-index="2" style="background: #2a2a3a; border: 1px solid rgba(59,130,246,0.4); border-radius: 10px; padding: 1rem;">
-      <h3 class="font-bold text-base mb-3" style="color: #3b82f6;">Plan</h3>
-      <p class="op-50 mb-2">Strategy agents</p>
-      <p class="op-70">Aggregation</p>
-      <p class="op-70">Initiatives</p>
-      <p class="op-70">Remediations</p>
-      <p class="op-70">Rollbacks</p>
-      <p class="op-70">Ops Considerations</p>
-    </div>
-
-    <div class="fragment flex-1 text-center" data-fragment-index="3" style="background: #2a2a3a; border: 1px solid rgba(6,182,212,0.4); border-radius: 10px; padding: 1rem;">
-      <h3 class="font-bold text-base mb-3" style="color: #06b6d4;">Fix</h3>
-      <p class="op-50 mb-2">Per-technology agents</p>
-      <p class="op-70">Ansible</p>
-      <p class="op-70">Terraform</p>
-      <p class="op-70">Intune</p>
-      <p class="op-70">Kandji</p>
-      <p class="op-70">PowerShell</p>
-      <p class="op-70">Docker / K8s</p>
-    </div>
-
-  </div>
+  <AgentOverview />
 </section>
 
 <section data-starfield>
