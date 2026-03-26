@@ -3,6 +3,8 @@
   import PipelineGraph from './components/PipelineGraph.svelte'
   import DiscoveryGraph from './components/DiscoveryGraph.svelte'
   import CveStream from './components/CveStream.svelte'
+  import autopilotBg from '/images/autopilot-bg.png'
+  import codingBg from '/images/coding-bg.jpg'
   import AnalysisBlock from './components/AnalysisBlock.svelte'
   import EvaluationBlock from './components/EvaluationBlock.svelte'
   import OpsConsiderations from './components/OpsConsiderations.svelte'
@@ -320,6 +322,46 @@
   <div class="max-w-3xl mx-auto text-lg text-center">
     <p class="op-70"><span class="font-bold" style="color: #3b82f6;">Analysis:</span> Endpoints, exploitable, news, massive blast radius</p>
     <p class="op-70 mt-4"><span class="font-bold" style="color: #a855f7;">Plan:</span> Patch and update the components</p>
+  </div>
+</section>
+
+<section data-background-image={autopilotBg} data-background-size="cover" data-background-opacity="0.3">
+  <h1 class="text-5xl font-bold">Auto-pilot remediations</h1>
+</section>
+
+<section data-background-image={codingBg} data-background-size="cover" data-background-opacity="0.3">
+  <h1 class="text-5xl font-bold">Auto-pilot remediations</h1>
+</section>
+
+<section data-autoslide="600">
+  <h2 class="text-4xl font-bold mb-4">Stable, Scalable, Predictable</h2>
+  <p class="text-xl op-70 mb-10">Use battle-tested solutions to automate remediation</p>
+  <div class="flex justify-center items-end gap-12 max-w-4xl mx-auto op-80">
+    <!-- Ansible -->
+    <div class="fragment text-center" data-fragment-index="0" data-autoslide="600">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="11" fill="none" stroke="white" stroke-width="1.2"/><path d="M12 4.5l5.5 12.5h-2l-1.5-3.5L9.5 17l-1-2.2L12 4.5zm0 4.5l-2.5 5.5 4-3L12 9z" fill="white"/></svg>
+      <p class="text-sm mt-2 op-70">Ansible</p>
+    </div>
+    <!-- Terraform -->
+    <div class="fragment text-center" data-fragment-index="1" data-autoslide="600">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="white"><path d="M1 4.5v6l5.25 3V7.5L1 4.5z" fill-opacity="0.5"/><path d="M7.5 7.5v6L12.75 10.5v-6L7.5 7.5z"/><path d="M14 7.5v6l5.25-3v-6L14 7.5z"/><path d="M7.5 14.75v6l5.25-3v-6l-5.25 3z"/></svg>
+      <p class="text-sm mt-2 op-70">Terraform</p>
+    </div>
+    <!-- Microsoft Intune -->
+    <div class="fragment text-center" data-fragment-index="2" data-autoslide="600">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="white"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="white" stroke-width="1.2"/><path d="M7 8h10v2H7zm0 3h10v2H7zm0 3h6v2H7z" fill="white" fill-opacity="0.7"/><circle cx="17" cy="17" r="3" fill="white"/><path d="M16 17l1 1 2-2" stroke="#2a2a3a" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p class="text-sm mt-2 op-70">Intune</p>
+    </div>
+    <!-- Kandji -->
+    <div class="fragment text-center" data-fragment-index="3" data-autoslide="600">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="none" stroke="white" stroke-width="1.2"/><path d="M8.5 8l3.5 4-3.5 4M12.5 16h3.5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p class="text-sm mt-2 op-70">Kandji</p>
+    </div>
+    <!-- PowerShell -->
+    <div class="fragment text-center" data-fragment-index="4" data-autoslide="9999999">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="white"><rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="white" stroke-width="1.2"/><path d="M6 8l4 4-4 4" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="16" x2="18" y2="16" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <p class="text-sm mt-2 op-70">PowerShell</p>
+    </div>
   </div>
 </section>
 
