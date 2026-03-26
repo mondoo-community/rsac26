@@ -148,7 +148,7 @@
   .agent-node {
     padding: 0.45rem 1rem;
     background: #2a2a3a;
-    border: 1.5px solid rgba(168, 85, 247, 0.4);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
     font-size: 0.85rem;
     font-weight: 600;

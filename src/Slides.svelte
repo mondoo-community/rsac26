@@ -176,31 +176,31 @@
     <text x="350" y="120" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" font-family="IBM Plex Mono, monospace">Service</text>
 
     <!-- Env vars / secrets -->
-    <rect x="10" y="10" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
+    <rect x="10" y="10" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
     <text x="85" y="28" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10" font-family="IBM Plex Mono, monospace">ENV VARS</text>
     <text x="85" y="42" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="IBM Plex Mono, monospace">API keys, DB creds</text>
     <line x1="160" y1="32" x2="260" y2="100" stroke="rgba(220,38,38,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
 
     <!-- Database -->
-    <rect x="10" y="170" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
+    <rect x="10" y="170" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
     <text x="85" y="188" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10" font-family="IBM Plex Mono, monospace">Databases</text>
     <text x="85" y="202" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="IBM Plex Mono, monospace">PostgreSQL, Redis, S3</text>
     <line x1="160" y1="192" x2="260" y2="130" stroke="rgba(220,38,38,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
 
     <!-- User data -->
-    <rect x="540" y="10" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
+    <rect x="540" y="10" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
     <text x="615" y="28" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10" font-family="IBM Plex Mono, monospace">User Data</text>
     <text x="615" y="42" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="IBM Plex Mono, monospace">PII, tokens, sessions</text>
     <line x1="540" y1="32" x2="440" y2="100" stroke="rgba(220,38,38,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
 
     <!-- Internal APIs -->
-    <rect x="540" y="105" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
+    <rect x="540" y="105" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
     <text x="615" y="123" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10" font-family="IBM Plex Mono, monospace">Internal APIs</text>
     <text x="615" y="137" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="IBM Plex Mono, monospace">payment, auth, admin</text>
     <line x1="540" y1="127" x2="440" y2="118" stroke="rgba(220,38,38,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
 
     <!-- Other services / supply chain -->
-    <rect x="540" y="200" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
+    <rect x="540" y="200" width="150" height="44" rx="6" fill="#2a2a3a" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
     <text x="615" y="218" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10" font-family="IBM Plex Mono, monospace">Other Services</text>
     <text x="615" y="232" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="IBM Plex Mono, monospace">build servers, clusters</text>
     <line x1="540" y1="222" x2="440" y2="135" stroke="rgba(220,38,38,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
