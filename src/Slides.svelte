@@ -13,6 +13,8 @@
   <p class="text-base op-40">dom@mondoo.com</p>
 </section>
 
-<section>
-  <h1 class="text-5xl font-bold">Goodbye 🌍</h1>
+<section data-starfield>
+  <MondooLogoFull width={555} height={108} />
+  <p class="mt-8 text-2xl op-70">Booth 4425 · North Expo Hall</p>
+  <p class="mt-4 text-2xl op-70">mondoo.com</p>
 </section>
