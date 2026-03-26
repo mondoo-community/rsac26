@@ -8,6 +8,14 @@
   import Slides from './Slides.svelte'
 
   let canvas: HTMLCanvasElement
+  let time = $state('')
+
+  function updateClock() {
+    const now = new Date()
+    time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  }
+  updateClock()
+  setInterval(updateClock, 10000)
 
   onMount(() => {
     const deck = new Reveal({
@@ -115,6 +123,8 @@
   </div>
 </div>
 
+<div class="clock">{time}</div>
+
 <style>
   .starfield {
     position: fixed;
@@ -137,5 +147,16 @@
 
   :global(.reveal code, .reveal pre) {
     font-family: "IBM Plex Mono", monospace;
+  }
+
+  .clock {
+    position: fixed;
+    bottom: 12px;
+    right: 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.3);
+    z-index: 10;
+    pointer-events: none;
   }
 </style>
