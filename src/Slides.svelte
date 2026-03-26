@@ -66,7 +66,7 @@
   <p class="text-2xl mt-4 op-70">CVE-2025-55182</p>
 </section>
 
-<section data-autoslide="1000">
+<section data-starfield data-autoslide="1000">
   <h2 class="text-3xl font-bold mb-8" style="color: #ec4899;">react2shell</h2>
   <div class="text-left max-w-3xl mx-auto text-lg">
     <p class="fragment" data-fragment-index="0" data-autoslide="1000"><span class="font-bold">CVSS 10.0</span> <span class="op-70">— unauthenticated RCE via unsafe deserialization in React Server Components</span></p>
@@ -251,7 +251,7 @@
   <p class="text-2xl mt-4 op-70">CVE-2025-53770</p>
 </section>
 
-<section data-autoslide="1000">
+<section data-starfield data-autoslide="1000">
   <h2 class="text-3xl font-bold mb-8" style="color: #3b82f6;">SharePoint RCE</h2>
   <div class="text-left max-w-3xl mx-auto text-lg">
     <p class="fragment" data-fragment-index="0" data-autoslide="1000"><span class="font-bold">CVSS 9.8</span> <span class="op-70">— pre-auth RCE in SharePoint Server</span></p>
@@ -312,7 +312,7 @@
   <p class="text-2xl mt-4 op-70">CVE-2026-32027</p>
 </section>
 
-<section data-autoslide="1000">
+<section data-starfield data-autoslide="1000">
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">ClawJacked</h2>
   <div class="text-left max-w-3xl mx-auto text-lg">
     <p class="fragment" data-fragment-index="0" data-autoslide="1000"><span class="font-bold">CVSS 7.1</span> <span class="op-70">— malicious websites hijack OpenClaw to steal data</span></p>
