@@ -391,7 +391,7 @@
 </section>
 
 <section>
-  <h2 class="text-3xl font-bold mb-6">Cumulative Remediations</h2>
+  <h2 class="text-3xl font-bold mb-6">Speed-up remediations</h2>
   <p class="text-base op-50 mb-6">Historical totals: how much has been done</p>
   <CumulativeChart />
 </section>

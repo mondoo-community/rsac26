@@ -127,8 +127,17 @@
     remGrad.append('stop').attr('offset', '0%').attr('stop-color', '#a855f7').attr('stop-opacity', 0.35)
     remGrad.append('stop').attr('offset', '100%').attr('stop-color', '#a855f7').attr('stop-opacity', 0.02)
 
-    g.append('path').datum(parsed).attr('fill', 'url(#grad-det)').attr('d', areaDetected)
-    g.append('path').datum(parsed).attr('fill', 'url(#grad-rem)').attr('d', areaRemediated)
+    // Clip rect for draw animation
+    const clipId = 'chart-clip-' + Math.random().toString(36).slice(2, 8)
+    const clip = svg.append('defs').append('clipPath').attr('id', clipId)
+    const clipRect = clip.append('rect')
+      .attr('x', 0).attr('y', 0)
+      .attr('width', 0).attr('height', height + 10)
+
+    const chartContent = g.append('g').attr('clip-path', `url(#${clipId})`)
+
+    chartContent.append('path').datum(parsed).attr('fill', 'url(#grad-det)').attr('d', areaDetected)
+    chartContent.append('path').datum(parsed).attr('fill', 'url(#grad-rem)').attr('d', areaRemediated)
 
     // Lines
     const lineDet = d3.line<typeof parsed[0]>()
@@ -136,10 +145,16 @@
     const lineRem = d3.line<typeof parsed[0]>()
       .x(d => x(d.date)).y(d => y(d.remediated)).curve(d3.curveMonotoneX)
 
-    g.append('path').datum(parsed)
+    chartContent.append('path').datum(parsed)
       .attr('fill', 'none').attr('stroke', '#ec4899').attr('stroke-width', 2).attr('d', lineDet)
-    g.append('path').datum(parsed)
+    chartContent.append('path').datum(parsed)
       .attr('fill', 'none').attr('stroke', '#a855f7').attr('stroke-width', 2).attr('d', lineRem)
+
+    // Animate clip rect to reveal chart left-to-right
+    clipRect.transition()
+      .duration(2500)
+      .ease(d3.easeLinear)
+      .attr('width', width + 10)
 
     // X axis with quarterly labels
     g.append('g')
