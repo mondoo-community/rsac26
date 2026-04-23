@@ -1,5 +1,5 @@
 <script lang="ts">
-  type NutritionFactorType = 'business' | 'cvss' | 'base-score' | 'exploit' | 'impact' | 'surface' | 'connection' | 'news'
+  type NutritionFactorType = 'business' | 'cvss' | 'exploit' | 'impact' | 'surface' | 'connection' | 'news'
 
   interface RiskCategory {
     name: string
@@ -10,16 +10,18 @@
     valueText?: string
   }
 
-  let { categories, baseScore, baseLabel = 'Critical', highlight = [] }: {
+  let { categories, highlight = [], shown = [] }: {
     categories: RiskCategory[]
-    baseScore: string
-    baseLabel?: string
-    /** Factor names to keep in focus. Empty = all focused. Include 'base-score' for the base score badge. */
+    /** Factor names to keep in focus. Empty = all focused. */
     highlight?: string[]
+    /** Factor names already revealed on prior slides — rendered desaturated but unblurred. */
+    shown?: string[]
   } = $props()
 
-  function isDimmed(name: string): boolean {
-    return highlight.length > 0 && !highlight.includes(name)
+  function badgeState(name: string): 'focus' | 'seen' | 'blurred' {
+    if (highlight.includes(name)) return 'focus'
+    if (shown.includes(name)) return 'seen'
+    return highlight.length === 0 ? 'focus' : 'blurred'
   }
 
   function impactLabel(cat: RiskCategory): string {
@@ -50,34 +52,12 @@
       default: return '—'
     }
   }
-
-  function baseVariant(): string {
-    const score = parseFloat(baseScore)
-    if (score >= 9.0) return 'negative'
-    if (score >= 7.0) return 'negative'
-    if (score >= 4.0) return 'neutral'
-    return 'positive'
-  }
 </script>
 
 <div class="nutrition-row">
-  <!-- Base score badge -->
-  <div class="badge" class:dimmed={isDimmed('base-score')}>
-    <div class="badge-top">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M11.6173 1.15851C11.8623 1.05702 12.1377 1.05702 12.3827 1.15851L19.3955 4.06331C19.6405 4.16481 19.8352 4.35948 19.9367 4.60451L22.8415 11.6173C22.943 11.8623 22.943 12.1377 22.8415 12.3827L19.9367 19.3955C19.8352 19.6405 19.6405 19.8352 19.3955 19.9367L12.3827 22.8415C12.1377 22.943 11.8623 22.943 11.6173 22.8415L4.60451 19.9367C4.35948 19.8352 4.16481 19.6405 4.06331 19.3955L1.15851 12.3827C1.05702 12.1377 1.05702 11.8623 1.15851 11.6173L4.06331 4.60451C4.16481 4.35948 4.35948 4.16481 4.60451 4.06331L11.6173 1.15851Z" fill-opacity="0.06"/>
-        <path d="M11.6173 4.15851C11.8623 4.05702 12.1377 4.05702 12.3827 4.15851L17.2742 6.18463C17.5192 6.28613 17.7139 6.4808 17.8154 6.72583L19.8415 11.6173C19.943 11.8623 19.943 12.1377 19.8415 12.3827L17.8154 17.2742C17.7139 17.5192 17.5192 17.7139 17.2742 17.8154L12.3827 19.8415C12.1377 19.943 11.8623 19.943 11.6173 19.8415L6.72583 17.8154C6.4808 17.7139 6.28613 17.5192 6.18463 17.2742L4.15851 12.3827C4.05702 12.1377 4.05702 11.8623 4.15851 11.6173L6.18463 6.72583C6.28613 6.4808 6.4808 6.28613 6.72583 6.18463L11.6173 4.15851Z" fill-opacity="0.12"/>
-        <path d="M11.6173 8.15851C11.8623 8.05702 12.1377 8.05702 12.3827 8.15851L14.4457 9.01306C14.6908 9.11455 14.8854 9.30923 14.9869 9.55426L15.8415 11.6173C15.943 11.8623 15.943 12.1377 15.8415 12.3827L14.9869 14.4457C14.8854 14.6908 14.6908 14.8854 14.4457 14.9869L12.3827 15.8415C12.1377 15.943 11.8623 15.943 11.6173 15.8415L9.55426 14.9869C9.30923 14.8854 9.11455 14.6908 9.01306 14.4457L8.15851 12.3827C8.05702 12.1377 8.05702 11.8623 8.15851 11.6173L9.01306 9.55426C9.11455 9.30923 9.30923 9.11455 9.55426 9.01306L11.6173 8.15851Z"/>
-      </svg>
-      <span class="badge-label">Base Score</span>
-    </div>
-    <div class="badge-value {baseVariant()}">
-      <span class="badge-text">{baseScore}</span>
-    </div>
-  </div>
-
   {#each categories as cat}
-    <div class="badge" class:dimmed={isDimmed(cat.name)}>
+    {@const state = badgeState(cat.name)}
+    <div class="badge" class:seen={state === 'seen'} class:blurred={state === 'blurred'}>
       <div class="badge-top">
         {#if cat.factor === 'business'}
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -190,15 +170,20 @@
   }
 
   .negative {
-    background: #dc2626;
+    background: #f8444d;
   }
 
   .positive {
-    background: #16a34a;
+    background: #70c748;
   }
 
-  .dimmed {
+  .blurred {
     opacity: 0.3;
     filter: blur(2px) grayscale(1);
+  }
+
+  .seen {
+    opacity: 0.55;
+    filter: grayscale(1);
   }
 </style>

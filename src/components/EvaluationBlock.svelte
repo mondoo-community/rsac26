@@ -9,7 +9,7 @@
     '  [2/5] Attack Surface      CRITICAL  RSC confirmed, server runtime, internet-facing',
     '  [3/5] Exploitability      CRITICAL  public exploits, actively exploited, no auth',
     '  [4/5] Blast Radius        CRITICAL  DB access, env secrets, internal network pivot',
-    '  [5/5] News & Intel        HIGH      named vuln, massive framework coverage',
+    '  [5/5] News & Intel        CRITICAL  named vuln, massive framework coverage',
     '',
     '> Computing overall evaluation...',
     '',

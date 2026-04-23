@@ -100,15 +100,13 @@
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Business Impact — does it matter?</h2>
   <div class="mb-8">
     <NutritionBadge
-      baseScore="10.0"
-      baseLabel="Critical"
-      highlight={['base-score', 'business']}
+      highlight={['business']}
       categories={[
-        { name: 'business', label: 'Business', impact: 1, isActive: true, factor: 'business' },
+        { name: 'business', label: 'Biz Impact', impact: 1, isActive: true, factor: 'business' },
         { name: 'surface', label: 'Atk Surface', impact: 1, isActive: true, factor: 'surface' },
         { name: 'exploit', label: 'Exploits', impact: 1, isActive: true, factor: 'exploit' },
-        { name: 'connection', label: 'Connection', impact: 1, isActive: true, factor: 'connection' },
-        { name: 'news', label: 'News', impact: 0.6, isActive: true, factor: 'news' },
+        { name: 'connection', label: 'Blast', impact: 1, isActive: true, factor: 'connection' },
+        { name: 'news', label: 'News', impact: 1, isActive: true, factor: 'news' },
       ]}
     />
   </div>
@@ -120,12 +118,12 @@
 <section data-analysis>
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Attack Surface — is it real?</h2>
   <div class="mb-8">
-    <NutritionBadge baseScore="10.0" highlight={['surface']} categories={[
-      { name: 'business', label: 'Business', impact: 1, isActive: true, factor: 'business' },
+    <NutritionBadge highlight={['surface']} shown={['business']} categories={[
+      { name: 'business', label: 'Biz Impact', impact: 1, isActive: true, factor: 'business' },
       { name: 'surface', label: 'Atk Surface', impact: 1, isActive: true, factor: 'surface' },
       { name: 'exploit', label: 'Exploits', impact: 1, isActive: true, factor: 'exploit' },
-      { name: 'connection', label: 'Connection', impact: 1, isActive: true, factor: 'connection' },
-      { name: 'news', label: 'News', impact: 0.6, isActive: true, factor: 'news' },
+      { name: 'connection', label: 'Blast', impact: 1, isActive: true, factor: 'connection' },
+      { name: 'news', label: 'News', impact: 1, isActive: true, factor: 'news' },
     ]} />
   </div>
   <div class="max-w-3xl mx-auto text-lg text-center">
@@ -137,12 +135,12 @@
 <section>
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Exploitability — can they do it?</h2>
   <div class="mb-8">
-    <NutritionBadge baseScore="10.0" highlight={['exploit']} categories={[
-      { name: 'business', label: 'Business', impact: 1, isActive: true, factor: 'business' },
+    <NutritionBadge highlight={['exploit']} shown={['business', 'surface']} categories={[
+      { name: 'business', label: 'Biz Impact', impact: 1, isActive: true, factor: 'business' },
       { name: 'surface', label: 'Atk Surface', impact: 1, isActive: true, factor: 'surface' },
       { name: 'exploit', label: 'Exploits', impact: 1, isActive: true, factor: 'exploit' },
-      { name: 'connection', label: 'Connection', impact: 1, isActive: true, factor: 'connection' },
-      { name: 'news', label: 'News', impact: 0.6, isActive: true, factor: 'news' },
+      { name: 'connection', label: 'Blast', impact: 1, isActive: true, factor: 'connection' },
+      { name: 'news', label: 'News', impact: 1, isActive: true, factor: 'news' },
     ]} />
   </div>
   <div class="max-w-3xl mx-auto text-lg text-center">
@@ -153,12 +151,12 @@
 <section>
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Blast Radius — does it hurt?</h2>
   <div class="mb-8">
-    <NutritionBadge baseScore="10.0" highlight={['connection']} categories={[
-      { name: 'business', label: 'Business', impact: 1, isActive: true, factor: 'business' },
+    <NutritionBadge highlight={['connection']} shown={['business', 'surface', 'exploit']} categories={[
+      { name: 'business', label: 'Biz Impact', impact: 1, isActive: true, factor: 'business' },
       { name: 'surface', label: 'Atk Surface', impact: 1, isActive: true, factor: 'surface' },
       { name: 'exploit', label: 'Exploits', impact: 1, isActive: true, factor: 'exploit' },
-      { name: 'connection', label: 'Connection', impact: 1, isActive: true, factor: 'connection' },
-      { name: 'news', label: 'News', impact: 0.6, isActive: true, factor: 'news' },
+      { name: 'connection', label: 'Blast', impact: 1, isActive: true, factor: 'connection' },
+      { name: 'news', label: 'News', impact: 1, isActive: true, factor: 'news' },
     ]} />
   </div>
   <div class="max-w-3xl mx-auto text-lg text-center">
@@ -210,12 +208,12 @@
 <section>
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">News & Intel</h2>
   <div class="mb-8">
-    <NutritionBadge baseScore="10.0" highlight={['news']} categories={[
-      { name: 'business', label: 'Business', impact: 1, isActive: true, factor: 'business' },
+    <NutritionBadge highlight={['news']} shown={['business', 'surface', 'exploit', 'connection']} categories={[
+      { name: 'business', label: 'Biz Impact', impact: 1, isActive: true, factor: 'business' },
       { name: 'surface', label: 'Atk Surface', impact: 1, isActive: true, factor: 'surface' },
       { name: 'exploit', label: 'Exploits', impact: 1, isActive: true, factor: 'exploit' },
-      { name: 'connection', label: 'Connection', impact: 1, isActive: true, factor: 'connection' },
-      { name: 'news', label: 'News', impact: 0.6, isActive: true, factor: 'news' },
+      { name: 'connection', label: 'Blast', impact: 1, isActive: true, factor: 'connection' },
+      { name: 'news', label: 'News', impact: 1, isActive: true, factor: 'news' },
     ]} />
   </div>
   <div class="max-w-3xl mx-auto text-lg text-center">
@@ -233,10 +231,18 @@
 </section>
 
 <section data-evaluation>
-  <h3 class="text-xl op-50 mb-2">Agent 6</h3>
-  <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">AI Evaluation</h2>
+  <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Overall Evaluation</h2>
+  <div class="mb-8">
+    <NutritionBadge shown={['business', 'surface', 'exploit', 'connection', 'news']} categories={[
+      { name: 'business', label: 'Biz Impact', impact: 1, isActive: true, factor: 'business' },
+      { name: 'surface', label: 'Atk Surface', impact: 1, isActive: true, factor: 'surface' },
+      { name: 'exploit', label: 'Exploits', impact: 1, isActive: true, factor: 'exploit' },
+      { name: 'connection', label: 'Blast', impact: 1, isActive: true, factor: 'connection' },
+      { name: 'news', label: 'News', impact: 1, isActive: true, factor: 'news' },
+    ]} />
+  </div>
   <div class="max-w-3xl mx-auto text-lg text-center">
-    <p class="op-70 mb-6">Adjust overall evaluation based on previous agents</p>
+    <p class="op-70 mb-6">Adjust overall evaluation based on previous results</p>
   </div>
   <EvaluationBlock />
 </section>
