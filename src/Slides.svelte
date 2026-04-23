@@ -6,6 +6,7 @@
   import autopilotBg from '/images/autopilot-bg.png'
   import codingBg from '/images/coding-bg.jpg'
   import controlRoomBg from '/images/control-room-bg.jpg'
+  import oppenheimerImg from '/images/oppenheimer.jpg'
   import AnalysisBlock from './components/AnalysisBlock.svelte'
   import EvaluationBlock from './components/EvaluationBlock.svelte'
   import OpsConsiderations from './components/OpsConsiderations.svelte'
@@ -238,6 +239,23 @@
   <EvaluationBlock />
 </section>
 
+<section>
+  <div class="flex gap-10 justify-center items-end max-w-5xl mx-auto">
+    <div class="text-center">
+      <img src={oppenheimerImg} alt="Happy Oppenheimer" style="width: 320px; height: 480px; object-fit: cover; object-position: left center; clip-path: inset(0 0 10% 0); border-radius: 8px; display: block; margin: 0 auto;" />
+      <p class="text-xl mt-4 font-bold" style="color: #70c748;">Straightforward fix</p>
+    </div>
+    <div class="fragment text-center" data-fragment-index="0">
+      <img src={oppenheimerImg} alt="Sad Oppenheimer" style="width: 320px; height: 480px; object-fit: cover; object-position: right center; clip-path: inset(0 0 10% 1px); border-radius: 8px; display: block; margin: 0 auto;" />
+      <p class="text-xl mt-4 font-bold" style="color: #f8444d;">Operational considerations</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <PipelineGraph highlight={2} />
+</section>
+
 <section data-starfield>
   <h1 class="text-5xl font-bold" style="color: #3b82f6;">ToolShell</h1>
   <p class="text-2xl mt-4 op-70">CVE-2025-53770</p>
@@ -251,10 +269,6 @@
     <p class="fragment mt-4" data-fragment-index="2" data-autoslide="1000"><span class="font-bold">Nation-state exploited</span> <span class="op-70">— APT27/APT31, CISA KEV, ransomware campaigns</span></p>
     <p class="fragment mt-4" data-fragment-index="3" data-autoslide="9999999"><span class="font-bold">Threats:</span> <span class="op-70">APT27/APT31, ransomware, HijackSharePointServer, MachineKeyFinder</span></p>
   </div>
-</section>
-
-<section>
-  <PipelineGraph highlight={2} />
 </section>
 
 <section>
