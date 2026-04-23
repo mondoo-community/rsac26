@@ -98,7 +98,7 @@
     <div class="col orch-col" bind:this={orchGroupEl}>
       <div class="col-label">Orchestration</div>
       <div class="center-node orch-node" bind:this={orchBoxEl}>
-        Orchestration
+        Supervisor
       </div>
     </div>
   </div>
