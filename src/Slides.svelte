@@ -66,7 +66,7 @@
     <p class="fragment mt-6" data-fragment-index="2">3. Security best-practices</p>
     <p class="fragment mt-10 text-xl op-80" data-fragment-index="3" style="display: inline-flex; align-items: center; gap: 0.5rem;">
       <span>If you have questions:</span>
-      <a href="https://www.linkedin.com/in/dominikrichter" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; color: #0a66c2; text-decoration: none;">
+      <a href="https://www.linkedin.com/in/dominikrichter" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; color: var(--link-color); text-decoration: none;">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
           <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/>
         </svg>
@@ -426,6 +426,16 @@
 
 <section data-starfield>
   <MondooLogoFull width={555} height={108} />
-  <p class="mt-8 text-2xl op-70">Booth 4425 · North Expo Hall</p>
-  <p class="mt-4 text-2xl op-70">mondoo.com</p>
+  <p class="mt-8 text-2xl op-70">Booth 2411</p>
+  <p class="mt-4 text-2xl op-70">
+    <a href="https://mondoo.com" target="_blank" rel="noopener noreferrer" style="color: var(--link-color); text-decoration: none;">mondoo.com</a>
+  </p>
+  <p class="mt-8 text-xl op-80" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+    <a href="https://www.linkedin.com/in/dominikrichter" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; color: var(--link-color); text-decoration: none;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/>
+      </svg>
+      <span>dominikrichter</span>
+    </a>
+  </p>
 </section>

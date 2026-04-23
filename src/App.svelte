@@ -140,6 +140,7 @@
     background: transparent !important;
     color: #fff;
     font-family: "Atkinson Hyperlegible Next", system-ui, sans-serif;
+    --link-color: #60a5fa;
   }
 
   :global(.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6) {
