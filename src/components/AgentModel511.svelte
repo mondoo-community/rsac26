@@ -72,7 +72,7 @@
 </script>
 
 <div class="model-container" bind:this={containerEl}>
-  <h2 class="text-4xl font-bold mb-10">511 Agent Model</h2>
+  <h2 class="text-4xl font-bold mb-10">Agentic Prioritization</h2>
 
   <div class="frag-trigger fragment" data-fragment-index="0"></div>
   <div class="frag-trigger fragment" data-fragment-index="1"></div>
@@ -80,7 +80,7 @@
 
   <div class="model-layout">
     <div class="col agents-col" bind:this={agentsGroupEl}>
-      <div class="col-label">5 Agents</div>
+      <div class="col-label">Focused analysis</div>
       {#each agents as agent, i}
         <div class="agent-node" bind:this={agentBoxEls[i]}>
           {agent}
@@ -89,14 +89,14 @@
     </div>
 
     <div class="col prio-col" bind:this={prioGroupEl}>
-      <div class="col-label">1 AI Evaluation</div>
+      <div class="col-label">Overall Evaluation</div>
       <div class="center-node prio-node" bind:this={prioBoxEl}>
         Prioritization
       </div>
     </div>
 
     <div class="col orch-col" bind:this={orchGroupEl}>
-      <div class="col-label">1 Orchestration</div>
+      <div class="col-label">Orchestration</div>
       <div class="center-node orch-node" bind:this={orchBoxEl}>
         Orchestration
       </div>

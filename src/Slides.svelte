@@ -40,7 +40,7 @@
     </div>
 
     <div class="fragment flex-1" data-fragment-index="1">
-      <h3 class="text-2xl font-bold" style="color: #3b82f6;">SharePoint RCE</h3>
+      <h3 class="text-2xl font-bold" style="color: #3b82f6;">ToolShell</h3>
       <p class="text-base op-70 mt-2">CVE-2025-53770</p>
       <p class="text-base op-50 mt-1">2025-07-19</p>
       <p class="text-base op-50 mt-1">SharePoint Server 2016/2019/SE</p>
@@ -97,7 +97,6 @@
 </section>
 
 <section>
-  <h3 class="text-xl op-50 mb-2">Agent 1</h3>
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Business Impact — does it matter?</h2>
   <div class="mb-8">
     <NutritionBadge
@@ -114,12 +113,11 @@
     />
   </div>
   <div class="max-w-3xl mx-auto text-lg text-center">
-    <p class="op-70">Customer-facing, critical systems vs. internal tools, test systems</p>
+    <p class="op-70">Customer data, critical systems vs. internal tools, test systems</p>
   </div>
 </section>
 
 <section data-analysis>
-  <h3 class="text-xl op-50 mb-2">Agent 2</h3>
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Attack Surface — is it real?</h2>
   <div class="mb-8">
     <NutritionBadge baseScore="10.0" highlight={['surface']} categories={[
@@ -137,7 +135,6 @@
 </section>
 
 <section>
-  <h3 class="text-xl op-50 mb-2">Agent 3</h3>
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Exploitability — can they do it?</h2>
   <div class="mb-8">
     <NutritionBadge baseScore="10.0" highlight={['exploit']} categories={[
@@ -154,7 +151,6 @@
 </section>
 
 <section>
-  <h3 class="text-xl op-50 mb-2">Agent 4</h3>
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">Blast Radius — does it hurt?</h2>
   <div class="mb-8">
     <NutritionBadge baseScore="10.0" highlight={['connection']} categories={[
@@ -212,7 +208,6 @@
 </section>
 
 <section>
-  <h3 class="text-xl op-50 mb-2">Agent 5</h3>
   <h2 class="text-3xl font-bold mb-8" style="color: #a855f7;">News & Intel</h2>
   <div class="mb-8">
     <NutritionBadge baseScore="10.0" highlight={['news']} categories={[
@@ -247,12 +242,12 @@
 </section>
 
 <section data-starfield>
-  <h1 class="text-5xl font-bold" style="color: #3b82f6;">SharePoint RCE</h1>
+  <h1 class="text-5xl font-bold" style="color: #3b82f6;">ToolShell</h1>
   <p class="text-2xl mt-4 op-70">CVE-2025-53770</p>
 </section>
 
 <section data-starfield data-autoslide="1000">
-  <h2 class="text-3xl font-bold mb-8" style="color: #3b82f6;">SharePoint RCE</h2>
+  <h2 class="text-3xl font-bold mb-8" style="color: #3b82f6;">ToolShell</h2>
   <div class="text-left max-w-3xl mx-auto text-lg">
     <p class="fragment" data-fragment-index="0" data-autoslide="1000"><span class="font-bold">CVSS 9.8</span> <span class="op-70">— pre-auth RCE in SharePoint Server</span></p>
     <p class="fragment mt-4" data-fragment-index="1" data-autoslide="1000"><span class="font-bold">Affected:</span> <span class="op-70">SharePoint Server 2016, 2019 &amp; Subscription Edition</span></p>

@@ -10,9 +10,12 @@
 
   const isStatic = $derived(highlight >= 0)
 
+  const highlightRange = [1, 2, 3]
+
   let visible: boolean[] = $state(Array(steps.length).fill(false))
   let lines: boolean[] = $state(Array(steps.length - 1).fill(false))
   let active: number = $state(-1)
+  let highlightMode: boolean = $state(false)
 
   let containerEl: HTMLDivElement
 
@@ -20,9 +23,9 @@
     if (isStatic) return
 
     const update = () => {
-      const fragments = containerEl.querySelectorAll('.fragment')
+      const stepFragments = containerEl.querySelectorAll('.step.fragment')
       let lastVisible = -1
-      fragments.forEach((f, i) => {
+      stepFragments.forEach((f, i) => {
         if (f.classList.contains('visible')) lastVisible = i
       })
 
@@ -31,6 +34,9 @@
         if (i > 0) lines[i - 1] = i <= lastVisible
       }
       active = lastVisible
+
+      const highlightEl = containerEl.querySelector('.highlight-trigger')
+      highlightMode = !!highlightEl?.classList.contains('visible')
     }
 
     const revealEl = containerEl.closest('.reveal')
@@ -50,25 +56,32 @@
   })
 </script>
 
-<div class="pipeline" bind:this={containerEl}>
-  {#each steps as step, i}
-    {#if i > 0}
-      <svg class="connector" width="60" height="4" viewBox="0 0 60 4" style="margin-bottom: 2rem;">
-        <line x1="0" y1="2" x2="60" y2="2" stroke={LINE_COLOR} stroke-width="2" stroke-dasharray="60" stroke-dashoffset={isStatic || lines[i - 1] ? 0 : 60} style="transition: stroke-dashoffset 0.4s ease-out;" />
-      </svg>
-    {/if}
-    {#if isStatic}
-      <div class="step-static">
-        <div class="circle" class:pulse={highlight === i} style="background: {highlight === i ? PURPLE : WHITE};">{i + 1}</div>
-        <div class="label">{step}</div>
-      </div>
-    {:else}
-      <div class="step fragment" data-fragment-index={i} class:shown={visible[i]}>
-        <div class="circle" style="background: {active === i ? PURPLE : WHITE}; transition: background 0.3s ease;">{i + 1}</div>
-        <div class="label">{step}</div>
-      </div>
-    {/if}
-  {/each}
+<div class="pipeline-wrapper" bind:this={containerEl}>
+  <div class="pipeline">
+    {#each steps as step, i}
+      {#if i > 0}
+        <svg class="connector" width="60" height="4" viewBox="0 0 60 4" style="margin-bottom: 2rem;">
+          <line x1="0" y1="2" x2="60" y2="2" stroke={LINE_COLOR} stroke-width="2" stroke-dasharray="60" stroke-dashoffset={isStatic || lines[i - 1] ? 0 : 60} style="transition: stroke-dashoffset 0.4s ease-out;" />
+        </svg>
+      {/if}
+      {#if isStatic}
+        <div class="step-static">
+          <div class="circle" class:pulse={highlight === i} style="background: {highlight === i ? PURPLE : WHITE};">{i + 1}</div>
+          <div class="label">{step}</div>
+        </div>
+      {:else}
+        {@const isHighlighted = highlightMode && highlightRange.includes(i)}
+        {@const isPurple = highlightMode ? isHighlighted : active === i}
+        <div class="step fragment" data-fragment-index={i} class:shown={visible[i]}>
+          <div class="circle" class:pulse={isHighlighted} style="background: {isPurple ? PURPLE : WHITE}; transition: background 0.3s ease;">{i + 1}</div>
+          <div class="label">{step}</div>
+        </div>
+      {/if}
+    {/each}
+  </div>
+  {#if !isStatic}
+    <div class="highlight-trigger fragment" data-fragment-index={steps.length} aria-hidden="true"></div>
+  {/if}
 </div>
 
 <style>
@@ -78,6 +91,13 @@
     justify-content: center;
     gap: 0;
     position: relative;
+  }
+
+  .highlight-trigger {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
   }
 
   .step {
