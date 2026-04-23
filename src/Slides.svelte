@@ -64,6 +64,15 @@
     <p class="fragment" data-fragment-index="0">1. Basics of Agentic AI</p>
     <p class="fragment mt-6" data-fragment-index="1">2. Context &gt; Agent</p>
     <p class="fragment mt-6" data-fragment-index="2">3. Security best-practices</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="text-4xl font-bold mb-12">Code-security 101</h2>
+  <div class="text-left max-w-3xl mx-auto text-2xl">
+    <p class="fragment" data-fragment-index="0">1. SDLC automation</p>
+    <p class="fragment mt-6" data-fragment-index="1">2. Security reviews in pipelines <span class="op-70 text-xl">(policy+AI)</span></p>
+    <p class="fragment mt-6" data-fragment-index="2">3. SBOMs</p>
     <p class="fragment mt-10 text-xl op-80" data-fragment-index="3" style="display: inline-flex; align-items: center; gap: 0.5rem;">
       <span>If you have questions:</span>
       <a href="https://www.linkedin.com/in/dominikrichter" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; color: var(--link-color); text-decoration: none;">
